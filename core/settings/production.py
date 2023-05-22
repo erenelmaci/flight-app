@@ -1,14 +1,19 @@
-from .development import *
+from .base import *
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+# python manage.py runserver --insecure
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost',]
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+]
 
 INSTALLED_APPS += []
 
 MIDDLEWARE += []
 
-# PostgreSQL database
+# Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = { 
@@ -19,7 +24,7 @@ DATABASES = {
         "PASSWORD": config("SQL_PASSWORD"), 
         "HOST": config("SQL_HOST"), 
         "PORT": config("SQL_PORT"), 
-        "ATOMIC_REQUESTS": True, # COMMIT
+        "ATOMIC_REQUESTS": True,
     }
 } 
 
@@ -41,30 +46,29 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # LOGGING
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": True,
+LOGGING = { 
+    "version": 1, 
+    "disable_existing_loggers": True, 
     "formatters": {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
-        }
-    },
+        'verbose': { 
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}', 
+            'style': '{', 
+        },
+    }, 
     "handlers": {
-        'file': {
-            'class': 'logging.FileHandler',
-            "formatter": "verbose",
-            'filename': './debug.log',
-            'level': 'WARNING',
-        },
-    },
-    "loggers": {
-        "django": {
-            "handlers": ['file'],
-            "level": config("DJANGO_LOG_LEVEL", "WARNING"),
-            'propagate': True,
-        },
-    },
+        'file': { 
+            'class': 'logging.FileHandler', 
+            "formatter": "verbose", 
+            'filename': './debug.log', 
+            'level': 'WARNING', 
+        }, 
+    }, 
+    "loggers": { 
+        "django": { 
+            "handlers": ['file'],  
+            "level": config("DJANGO_LOG_LEVEL", "WARNING"), 
+            'propagate': True, 
+        }, 
+    }, 
 }
