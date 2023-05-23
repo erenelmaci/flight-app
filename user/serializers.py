@@ -1,6 +1,9 @@
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
+
+
+# --------- UserSerializer ------------
 from django.contrib.auth.models import User
+from rest_framework.validators import UniqueValidator
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -17,7 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = [
-            # "password",
             "last_login",
             "date_joined",
             "groups",
@@ -26,18 +28,15 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs.get('password', False):
-            from django.contrib.auth.password_validation import validate_password # doğrulama fonksiyonu
-            from django.contrib.auth.hashers import make_password # şifreleme fonksiyonu
-            password = attrs['password'] # Password al.
-            validate_password(password) # Validation'dan geçir.
-            attrs.update(
-                {
-                    'password': make_password(password) # Password şifrele ve güncelle.
-                }
-            )
-        return super().validate(attrs) # Orjinal methodu çalıştır.
+            from django.contrib.auth.password_validation import validate_password
+            from django.contrib.auth.hashers import make_password
+            password = attrs['password']
+            validate_password(password)
+            attrs.update({'password': make_password(password)})
+        return super().validate(attrs)
     
-# --------- TokenSerializer ------------
+
+# --------- UserTokenSerializer ------------
 from dj_rest_auth.serializers import TokenSerializer
 
 class UserTokenSerializer(TokenSerializer):
