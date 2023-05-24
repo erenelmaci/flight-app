@@ -67,7 +67,7 @@ class Flight(FixModel):
     arrival_date = models.DateField()
 
     def __str__(self):
-        return f'{self.flight_number} # {self.airline} / {self.departure} -> {self.arrival}'
+        return f'{self.flight_number} # {self.airline}'
 
 
 # -----------------------------------------------------------
@@ -76,3 +76,6 @@ class Flight(FixModel):
 class Reservation(FixModel):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     passenger = models.ManyToManyField(Passenger)
+
+    def __str__(self):
+        return f'{self.flight} [{self.passenger.count()}]'

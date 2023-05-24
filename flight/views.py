@@ -24,9 +24,11 @@ class PassengerView(FixView):
 # -----------------------------------------------------------
 # --------------------- FlightView --------------------------
 # -----------------------------------------------------------
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 class FlightView(FixView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 # -----------------------------------------------------------

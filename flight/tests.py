@@ -1,3 +1,6 @@
-from django.test import TestCase
+# from django.test import TestCase
+from rest_framework.test import APIRequestFactory, APITestCase
 
-# Create your tests here.
+
+class FlightTestCase(APITestCase):
+    pass
