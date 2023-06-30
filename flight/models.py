@@ -20,7 +20,7 @@ class FixModel(models.Model):
 class Passenger(FixModel):
 
     GENDERS = (
-        ('F', 'Female'),
+        ('F', 'Femal'),
         ('M', 'Male'),
         ('0', 'Prefer Not To Say'),
     )
